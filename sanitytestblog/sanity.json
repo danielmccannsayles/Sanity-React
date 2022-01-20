@@ -1,7 +1,7 @@
 {
   "root": true,
   "project": {
-    "name": "Sanity Test Blog"
+    "name": "James Binnall's Website"
   },
   "api": {
     "projectId": "lb85ts9m",
@@ -11,19 +11,28 @@
     "@sanity/base",
     "@sanity/default-layout",
     "@sanity/default-login",
-    "@sanity/desk-tool"
+    "@sanity/desk-tool",
+    "order-documents"
   ],
   "env": {
     "development": {
       "plugins": [
-        "@sanity/vision"
+    
       ]
     }
   },
   "parts": [
     {
       "name": "part:@sanity/base/schema",
-      "path": "./schemas/schema"
-    }
+      "path": "./schemas/schema.js"
+    },
+    {
+      "name": "part:@sanity/desk-tool/structure",
+      "path": "./schemas/testStructure.js"
+    },
+    { 
+      "implements": "part:@sanity/base/document-actions/resolver", 
+      "path": "resolveDocumentActions.js"
+    } 
   ]
 }

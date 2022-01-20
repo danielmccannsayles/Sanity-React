@@ -9,6 +9,19 @@ import blockContent from './blockContent'
 import category from './category'
 import post from './post'
 import author from './author'
+import testSchema from './testSchema'
+import linksNav from './JamesBinnallSchemas/HomePage/linksNav'
+import subTitle from './JamesBinnallSchemas/HomePage/subTitle'
+import mainImage from './JamesBinnallSchemas/HomePage/mainImage'
+import summary from './JamesBinnallSchemas/SecondarySplashPage/summary'
+import pageOne from './JamesBinnallSchemas/PageOne/pageOne'
+import youtubeLink from './JamesBinnallSchemas/PageTwo/youtubeLink'
+import projectOne from './JamesBinnallSchemas/ProjectOne/projectOne'
+import projectTwo from './JamesBinnallSchemas/ProjectTwo/projectTwo'
+import siteMap from './JamesBinnallSchemas/SiteMap/siteMap'
+import contact from './JamesBinnallSchemas/Contact/contact'
+import research from './JamesBinnallSchemas/PageThree/research'
+import article from './JamesBinnallSchemas/PageFour/article'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -22,6 +35,19 @@ export default createSchema({
     post,
     author,
     category,
+    testSchema,
+    linksNav,
+    subTitle,
+    mainImage,
+    summary,
+    pageOne,
+    youtubeLink,
+    projectOne,
+    projectTwo,
+    siteMap,
+    contact,
+    research,
+    article,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
