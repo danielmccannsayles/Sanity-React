@@ -39,7 +39,7 @@ export default function PageFour() {
               index
             ) => (
               <div>
-                <a href={el.url} key={index}> {/*Change key to something more unique - index is last resort*/}
+                <a href={el.url} key={index+100}> {/*Change key to something more unique - index is last resort*/}
                   {" "}
                   {el.title}
                 </a>

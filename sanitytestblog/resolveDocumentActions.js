@@ -5,7 +5,6 @@ import {PublishAction} from 'part:@sanity/base/document-actions'
 const dynamicArray = [
   "youtubeLink",
   "subTitle",
-  "research",
   "article",
 ]
 

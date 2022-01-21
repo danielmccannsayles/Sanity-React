@@ -13,12 +13,7 @@ export default {
         title: "Content - will retain formats & links",
         type: "blockContent",
       },
-      {
-        name: "order",
-        title: "Order",
-        type: "number",
-        hidden: true,
-      },
+      
     ],
   };
   

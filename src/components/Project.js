@@ -26,7 +26,7 @@ export default function Project(props) {
         setPageData(data);
         console.log(data);
       });
-  }, []);
+  }, [props.project]);
 
   return (
     <>

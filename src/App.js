@@ -15,13 +15,30 @@ function urlFor(source) {
   return builder.image(source);
 }
 
+const pages = {
+  pageOne: PageOne,
+  pageTwo: PageTwo,
+  pageThree: PageThree,
+  pageFour: PageFour,
+  projectOne: Project,
+  projectTwo: Project,
+}
+
+var PageComponent;
+
+
 function App() {
 
   const [contact, setContact] = useState(null);
   const [linksNav, setLinksNav] = useState(null);
   const [summary, setSummary] = useState(null);
   const [siteMap, setSiteMap] = useState(null);
-  const [currentPage, setCurentPage] = useState(1); //number from 1 to 6 indicating pages 1-4 & projects 1 & 2 (5 & 6 respectively)
+  const [currentPage, setCurrentPage] = useState('pageTwo'); //value from 1 to 5 indicating pages 1-4 & project
+  const [project, setProject] = useState('projectTwo'); //used for project - two values
+
+  PageComponent = pages[currentPage];
+
+  const siteMapComponents=[];
 
   useEffect(() => { //ran once when page is loaded, sets constant values
     sanityClient
@@ -61,15 +78,35 @@ function App() {
       .fetch( 
         `*[_type == "siteMap" ]{
         page1,
-        redirect1
+        redirect1,
+        page2,
+        redirect2,
+        page3,
+        redirect3,
+        page4,
+        redirect4,
+        page5,
+        redirect5,
+        page6,
+        redirect6,
+        
       }`)
       .then((data) => {
         setSiteMap(data);
-        console.log(data);
+        console.log('siteMap\n' + JSON.stringify(data));
       });
 
-
+      
+      
   }, []);
+
+  function changePage(page){
+    //set currentPage & project here
+    setCurrentPage(page);
+    setProject(page);
+  }
+
+
 
   return (
     //homepage
@@ -78,25 +115,23 @@ function App() {
     
     {linksNav && <img src={urlFor(linksNav[0].ImageUrl).width(200).url()} />}  
 
-    {contact && <div> Contact: {contact[0].phoneNumber } </div>}
+    {/* {summary && <div> Summary: {summary[0].title } </div>} */}
+    <div style={{marginBottom:"20px"}}>Current Page:</div>
 
-    {siteMap && <div> Site Map: {siteMap[0].page1} </div>}
+    <PageComponent project={project}></PageComponent>
 
-    {summary && <div> Summary: {summary[0].title } </div>}
-    Page 1
-    <PageOne></PageOne>
-    Page 2
-    <PageTwo></PageTwo>
-    Page 3
-    <PageThree></PageThree>
-    Page 4
-    <PageFour></PageFour>
-    Page 5
-    <Project project="projectOne"></Project>
-    Page 6
-    <Project project="projectTwo"></Project>
+    <div style={{marginTop:"20px"}}>Site Map:</div>
+    {siteMap && <div> {/*this code looks gross - could be redone but prob is simpler this way*/}
+      <button onClick={() => changePage(siteMap[0].redirect1)}> {siteMap[0].page1}</button>
+      <button onClick={() => changePage(siteMap[0].redirect2)}> {siteMap[0].page2}</button>
+      <button onClick={() => changePage(siteMap[0].redirect3)}> {siteMap[0].page3}</button>
+      <button onClick={() => changePage(siteMap[0].redirect4)}> {siteMap[0].page4}</button>
+      <button onClick={() => changePage(siteMap[0].redirect5)}> {siteMap[0].page5}</button>
+      <button onClick={() => changePage(siteMap[0].redirect6)}> {siteMap[0].page6}</button> 
+    </div>}
 
 
+    {contact && <div style={{marginTop:"20px"}}> Contact: {contact[0].phoneNumber } </div>}
 
     </>
   );

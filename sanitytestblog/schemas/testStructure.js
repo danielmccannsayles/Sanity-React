@@ -77,6 +77,8 @@ export default () => {
 
         //Contact
         singleton("Contact", "contact"),
+
+
     
     ]);
 };
@@ -86,5 +88,5 @@ export default () => {
 function singleton(title, schematype) {
   return S.listItem()
     .title(title)
-    .child(S.editor().schemaType(schematype).documentId(schematype));
+    .child(S.editor().schemaType(schematype).documentId(schematype).title(title));
 }

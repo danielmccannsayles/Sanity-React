@@ -25,9 +25,9 @@ export default function PageThree() {
       {" "}
       {pageData && (
         <>
-          <div>{pageData[1].title}</div> {/*Currently set to [1] cause I accidentally made two of these pages - delete thes in the future*/}
+          <div>{pageData[0].title}</div> {/*Currently set to [1] cause I accidentally made two of these pages - delete thes in the future*/}
           <BlockContent
-            blocks={pageData[1].content}
+            blocks={pageData[0].content}
             projectId={sanityClient.projectId}
             dataset={sanityClient.dataset}
           />

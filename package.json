@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@sanity/block-content-to-react": "^3.0.0",
-    "@sanity/client": "^2.23.0",
+    "@sanity/client": "^2.23.2",
     "@sanity/image-url": "^1.0.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^11.2.7",
