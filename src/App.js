@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import sanityClient from "./client.js";
 import imageUrlBuilder from "@sanity/image-url";
+import BlockContent from "@sanity/block-content-to-react";
 
 import PageOne from "./components/PageOne.js";
 import PageTwo from "./components/PageTwo.js";
@@ -33,7 +34,7 @@ function App() {
   const [linksNav, setLinksNav] = useState(null);
   const [summary, setSummary] = useState(null);
   const [siteMap, setSiteMap] = useState(null);
-  const [currentPage, setCurrentPage] = useState('pageTwo'); //value from 1 to 5 indicating pages 1-4 & project
+  const [currentPage, setCurrentPage] = useState('pageOne'); //value from 1 to 5 indicating pages 1-4 & project
   const [project, setProject] = useState('projectTwo'); //used for project - two values
 
   PageComponent = pages[currentPage];
@@ -46,6 +47,9 @@ function App() {
         `*[_type == "linksNav" ]{
           "ImageUrl": mainImg.asset->url,
           Link1,
+          Link2,
+          url1,
+          url2
         }`
       )
       .then((data) => {
@@ -57,7 +61,11 @@ function App() {
       .fetch( 
         `*[_type == "contact" ]{
         title,
-        phoneNumber
+        phoneNumber,
+        emailAddress,
+        address,
+        "logoImage": logoImage.asset->url,
+
       }`)
       .then((data) => {
         setContact(data);
@@ -68,6 +76,7 @@ function App() {
       .fetch( 
         `*[_type == "summary" ]{
         title,
+        content
       }`)
       .then((data) => {
         setSummary(data);
@@ -111,12 +120,20 @@ function App() {
   return (
     //homepage
     <>
-    {linksNav && <div> {linksNav[0].Link1 } </div>}
+    {linksNav && <div>Top Left Links: <a href={linksNav[0].url1} > {linksNav[0].Link1} </a> , <a href={linksNav[0].url2} > {linksNav[0].Link2} </a></div>}
     
-    {linksNav && <img src={urlFor(linksNav[0].ImageUrl).width(200).url()} />}  
+    Main Image: {linksNav && <img style={{marginTop:"10px"}} src={urlFor(linksNav[0].ImageUrl).width(200).url()} />} 
 
-    {/* {summary && <div> Summary: {summary[0].title } </div>} */}
-    <div style={{marginBottom:"20px"}}>Current Page:</div>
+    {summary && currentPage == 'pageOne' && <>
+    <div> Summary: {summary[0].title } </div>
+   Paragraph: <BlockContent
+            blocks={summary[0].content}
+            projectId={sanityClient.projectId}
+            dataset={sanityClient.dataset}
+          />
+    </>} 
+
+    <div style={{marginBottom:"20px"}}>Current Page: {currentPage}</div>
 
     <PageComponent project={project}></PageComponent>
 
@@ -131,7 +148,11 @@ function App() {
     </div>}
 
 
-    {contact && <div style={{marginTop:"20px"}}> Contact: {contact[0].phoneNumber } </div>}
+    {contact && <div style={{marginTop:"20px"}}> Phone Number: {contact[0].phoneNumber } </div>}
+    {contact && <div style={{marginTop:"20px"}}> Email Address: {contact[0].emailAddress } </div>}
+    {contact && <div style={{marginTop:"20px"}}> Address: {contact[0].address } </div>}
+
+    Page Logo: {contact && contact[0].logoImage && <img style={{marginTop:"10px"}} src={urlFor(contact[0].logoImage).width(200).url()} />}
 
     </>
   );
